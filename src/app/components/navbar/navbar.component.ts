@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  router: Router;
+
+  constructor(router: Router) {
+    this.router = router;
+  }
 
   ngOnInit() {
   }
@@ -15,5 +20,9 @@ export class NavbarComponent implements OnInit {
 
   public goYoutube() {
     window.open('https://www.youtube.com/channel/UC99duNPf5BxFKBe8vvx1F2Q', '_self');
+  }
+
+  public goRecettes() {
+    this.router.navigate(['recettes']);
   }
 }
