@@ -8,6 +8,8 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RecettesComponent } from './components/recettes/recettes.component';
 import {RecettesService} from './services/recettes.service';
+import { AdminComponent } from './components/admin/admin.component';
+import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   {
@@ -31,12 +33,14 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    RecettesComponent
+    RecettesComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     RecettesService,

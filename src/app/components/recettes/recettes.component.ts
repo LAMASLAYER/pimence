@@ -26,4 +26,13 @@ export class RecettesComponent implements OnInit {
     );
   }
 
+  public addUser() {
+    this.recettesService.addUser().subscribe(
+      res => {
+        console.log(res);
+      }
+    );
+  }
+
+
 }

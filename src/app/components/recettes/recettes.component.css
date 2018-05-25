@@ -1,0 +1,10 @@
+.row{
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px grey solid;
+}
+img {
+  width: 900px;
+}

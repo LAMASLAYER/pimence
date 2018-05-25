@@ -1,0 +1,36 @@
+<div style="margin-top: 10%" class="container">
+  <form
+    #login="ngForm"
+    method="post">
+    <div class="group-2">
+      <label *ngIf="newLogin.username !== ''" class="col-md-4 control-label label-copy" >Username</label>
+      <input class="field-state-1 "
+             required
+             [class.selected]="selected"
+             (focus)="selected=true;"
+             (blur)="selected=false"
+             #username="ngModel"
+             name="username"
+             [(ngModel)]="newLogin.username"
+             (input)="newLogin.username  = $event.target.value"
+             type="text"
+             placeholder="Username"/>
+      <label *ngIf="newLogin.password !== ''" class="col-md-4 control-label label-copy" >Password</label>
+      <input
+        class="field-state-1"
+        required
+        name="password"
+        [class.selected]="selected2"
+        (focus)="selected2=true"
+        (blur)="selected2=false"
+        [(ngModel)]="newLogin.password"
+        (input)="newLogin.password  = $event.target.value"
+        placeholder="Password"
+        type="password"/>
+    </div>
+    <div class="container" style="text-align: center">
+      <button type="button" class="button-inactive rectangle-3">CANCEL</button>
+      <button type="button" class="button-inactive rectangle-3" (click)="log()">CONNECTION</button>
+    </div>
+  </form>
+</div>
