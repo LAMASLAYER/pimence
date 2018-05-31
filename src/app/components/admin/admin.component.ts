@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../services/global.service';
 import {Login} from '../../models/login';
+import {GlobalService} from '../../services/global.service';
+import {AdminService} from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -9,25 +10,60 @@ import {Login} from '../../models/login';
 })
 export class AdminComponent implements OnInit {
 
-
   public selected: boolean;
   public selected2: boolean;
   public newLogin: Login;
-  public globalService: GlobalService;
+  public adminService: AdminService;
+  private globalService: GlobalService;
+  public emptyUser: boolean;
+  public emptyPassword: boolean;
 
-  constructor(globalService: GlobalService) {
+  constructor(adminService:AdminService, globalService: GlobalService) {
+    this.adminService = adminService;
     this.globalService = globalService;
-    this.newLogin = new Login();
   }
 
   ngOnInit() {
+    this.newLogin = new Login();
+    this.newLogin.username = '';
+    this.newLogin.password = '';
   }
 
-  public log() {
-    if (this.newLogin.username === 'admin' && this.newLogin.password === 'admin') {
-      this.globalService.router.navigate(['panel']);
+  public setEmptyUser(value:boolean) {
+    this.emptyUser = value;
+  }
+
+  public getEmptyUser(): boolean {
+    return this.emptyUser;
+  }
+
+  public setEmptyPassword(value: boolean) {
+    this.emptyPassword = value;
+  }
+
+  public getEmptyPassword(): boolean {
+    return this.emptyPassword;
+  }
+
+  public log():void {
+    this.setEmptyUser(false);
+    this.setEmptyPassword(false);
+    if(this.newLogin.username === '' && this.newLogin.password !== '') {
+      this.setEmptyUser(true);
+    } else if(this.newLogin.password === '' && this.newLogin.username !== ''){
+      this.setEmptyPassword(true);
+    } else if(this.newLogin.username === '' && this.newLogin.password === '') {
+      this.setEmptyPassword(true);
+      this.setEmptyUser(true);
+    }else {
+      console.log(this.newLogin.username);
+      this.adminService.login(this.newLogin).subscribe(
+        res => {
+        }
+      );
     }
   }
+
 
 
 }

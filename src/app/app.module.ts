@@ -10,6 +10,8 @@ import { RecettesComponent } from './components/recettes/recettes.component';
 import {RecettesService} from './services/recettes.service';
 import { AdminComponent } from './components/admin/admin.component';
 import {FormsModule} from '@angular/forms';
+import {AdminService} from './services/admin.service';
+import {GlobalService} from './services/global.service';
 
 const appRoutes: Routes = [
   {
@@ -24,6 +26,10 @@ const appRoutes: Routes = [
   {
     path: 'recettes',
     component: RecettesComponent
+  },
+  {
+    path: 'liveEditor',
+    component: AdminComponent
   }
 ];
 
@@ -44,7 +50,9 @@ const appRoutes: Routes = [
   ],
   providers: [
     RecettesService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    AdminService,
+    GlobalService
   ],
   bootstrap: [AppComponent]
 })

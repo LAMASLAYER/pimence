@@ -18,11 +18,19 @@ export class NavbarComponent implements OnInit {
   }
 
 
-  public goYoutube() {
+  public goYoutube():void {
     window.open('https://www.youtube.com/channel/UC99duNPf5BxFKBe8vvx1F2Q', '_self');
   }
 
-  public goRecettes() {
+  public goRecettes():void {
     this.router.navigate(['recettes']);
+  }
+
+  public goAdmin():void {
+    this.router.navigate(['liveEditor']);
+  }
+
+  public goFacebook():void {
+    window.open('https://www.facebook.com/lapimence/', '_self');
   }
 }

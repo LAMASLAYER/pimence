@@ -11,13 +11,4 @@ export class RecettesService extends GlobalService {
     return this.http.get(this.server + '/articles');
   }
 
-  public addUser(): Observable<Object> {
-    const user = new User();
-    user.username = 'test';
-    user.password = 'test';
-    user.credentials = 0;
-    return this.http.post(this.server + '/users', user);
-  }
-
-
 }
