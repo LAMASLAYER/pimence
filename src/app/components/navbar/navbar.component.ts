@@ -33,4 +33,13 @@ export class NavbarComponent implements OnInit {
   public goFacebook():void {
     window.open('https://www.facebook.com/lapimence/', '_self');
   }
+
+  public getCredentials():string {
+    return localStorage.getItem('userCredentials');
+  }
+
+  public disconnect():void {
+    localStorage.removeItem('userCredentials');
+    window.location.reload();
+  }
 }

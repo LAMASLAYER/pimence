@@ -9,7 +9,7 @@ export class GlobalService {
 
   public router: Router;
   public http: HttpClient;
-  public server: string = 'https://pimence.herokuapp.com';
+  public server: string = 'https://pimencedb.herokuapp.com';
 
   constructor(http: HttpClient, router: Router) {
     this.http = http;

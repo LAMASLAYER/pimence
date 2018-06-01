@@ -2,11 +2,16 @@
   <div class="col-12" style="text-align: left; margin-top:20px;">
     <a class="nav-item" href="/">ACCUEIL</a>
     <a class="nav-item" (click)="goRecettes()">RECETTES</a>
-    <a class="nav-item" (click)="goAdmin()">RECETTES</a>
+    <a class="nav-item" (click)="goAdmin()">ADMIN</a>
 
   </div>
-</div>
 
+</div>
+<div *ngIf="getCredentials()==='0'" style="float:right; color:white;margin-right:10%">
+  <label>ADMIN MODE</label>
+  <br/>
+  <a style="cursor:hand" (click)="disconnect()">disconnect</a>
+</div>
 <div style="margin-top: 15px; margin-left: 10px" class="wrapper">
   <i (click)="goFacebook()" class="fa fa-5x fa-facebook-square"></i>
   <i (click)="goYoutube()" class="fa fa-5x fa-youtube-square"></i>

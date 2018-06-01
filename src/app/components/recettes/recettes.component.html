@@ -1,18 +1,118 @@
 <div style="margin-top: 5%">
-<div class="container">
+  <button *ngIf="getCredentials()==='0'" style="float:right; margin-right:15px;" class="btn btn-primary" data-toggle="modal" data-target="#modal2" >AJOUTER UN ARTICLE</button>
+  <div class="container">
+  <div *ngFor="let r of recettes" >
 
     <div style="margin-bottom: 5%; background-color: white" class="row">
       <div class="col-4">
-        <iframe src="https://www.youtube.com/embed/t3ZogKgymLY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe [src]="r.src | safe" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="col-xs-12 col-sm-8 col-md-8">
         <div class="list-group">
         </div>
-        <h4><a href="#">UN TRUC QUI A L'AIR BON</a></h4>
-        <p>Bon au moins qui a l'air mangeable</p>
+        <a *ngIf="getCredentials()==='0' && !getEdition()" style="font-weight:bold; float:right; cursor:hand" data-toggle="modal" data-target="#myModal" (click)="focusedId=r.id">DELETE</a>
+        <br *ngIf="getCredentials()==='0' && !getEdition()"/>
+        <a *ngIf="getCredentials()==='0' && !getEdition()" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(true);standby.title=r.title;standby.article=r.article">EDIT</a>
+        <a *ngIf="getCredentials()==='0' && getEdition()" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(false);r.title=standby.title;r.article=standby.article">CANCEL</a>
+        <br *ngIf="getCredentials()==='0' && getEdition()"/>
+        <a *ngIf="getCredentials()==='0' && getEdition()" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(false);update(r.id, r.title, r.article, r.src)">OK</a>
+        <label *ngIf="getEdition()">Titre</label>
+        <br *ngIf="getEdition()"/>
+        <input *ngIf="getEdition()"
+               class="field-state-1 "
+               #title="ngModel"
+               name="title"
+               [(ngModel)]="r.title"
+               (input)="updatedRecette.title  = $event.target.value"
+               type="text"
+               placeholder="Titre"/>
+        <br *ngIf="getEdition()"/>
+        <label *ngIf="getEdition()">Article</label>
+        <br *ngIf="getEdition()"/>
+        <textarea *ngIf="getEdition()"
+                  style="width:50%;min-height:30px"
+                  #article="ngModel"
+                  name="article"
+                  [(ngModel)]="r.article"
+                  (input)="updatedRecette.article  = $event.target.value"
+                  type="text"
+                  placeholder="Titre"></textarea>
+        <h4 *ngIf="!getEdition()">{{ r.title }}<a href="#"></a></h4>
+        <p *ngIf="!getEdition()">{{ r.article }}</p>
         <iframe width="100%" height="100" scrolling="no" frameborder="no"></iframe>
       </div>
     </div>
 
+
+  </div>
 </div>
+</div>
+
+<!-- The Modal -->
+<div style="margin-top: 10%" class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Une fois l'article supprimé, impossible de revenir en arrière.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete(focusedId)">SUPPRIMER</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">RETOUR</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal2 -->
+<div style="margin-top: 10%" class="modal" id="modal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Ajouter un article</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <label>Titre</label>
+        <br/>
+        <input
+          [(ngModel)]="newArticle.title"
+          (input)="newArticle.title  = $event.target.value" style="width: 100%" placeholder="Inserer le titre"/>
+        <br/>
+        <label>Article</label>
+        <br/>
+        <textarea
+          [(ngModel)]="newArticle.article"
+          (input)="newArticle.article  = $event.target.value" style="width: 100%" placeholder="Inserer l'article"></textarea>
+        <br/>
+        <label>Lien de la vidéo</label>
+        <br>
+        <input
+          [(ngModel)]="newArticle.src"
+          (input)="newArticle.src  = $event.target.value" style="width: 100%" placeholder="Inserer le lien de la video"/>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="addRecette()">OK</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">RETOUR</button>
+      </div>
+
+    </div>
+  </div>
 </div>

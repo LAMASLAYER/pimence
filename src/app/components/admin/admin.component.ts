@@ -56,7 +56,6 @@ export class AdminComponent implements OnInit {
       this.setEmptyPassword(true);
       this.setEmptyUser(true);
     }else {
-      console.log(this.newLogin.username);
       this.adminService.login(this.newLogin).subscribe(
         res => {
         }

@@ -12,6 +12,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import {FormsModule} from '@angular/forms';
 import {AdminService} from './services/admin.service';
 import {GlobalService} from './services/global.service';
+import { SafePipe } from './pipes/safe.pipe';
 
 const appRoutes: Routes = [
   {
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     HomeComponent,
     NavbarComponent,
     RecettesComponent,
-    AdminComponent
+    AdminComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

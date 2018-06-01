@@ -29,7 +29,8 @@
         placeholder="Password"
         type="password"/>
       <label *ngIf="getEmptyPassword()" style="color:red">Please insert a password.</label>
-      <label *ngIf="adminService.getUnAuthorize()" style="color:red">Wrong username or/and password.</label>
+      <label *ngIf="adminService.getWrongPassword()" style="color:red">Wrong password.</label>
+      <label *ngIf="adminService.getUnAuthorize()" style="color:red">This username does not exists.</label>
     </div>
     <div class="container" style="text-align: center">
       <button type="button" class="button-inactive rectangle-3">CANCEL</button>
