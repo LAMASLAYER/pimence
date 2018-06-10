@@ -10,12 +10,12 @@ import {Recette} from '../../models/recette';
 export class RecettesComponent implements OnInit {
 
   private recettesService: RecettesService;
-  private edition:boolean;
+  private edition: boolean;
   public recettes: Array<Recette>;
-  public standby:Recette;
-  private updatedRecette;
-  public focusedId:number;
-  public newArticle:Recette;
+  public standby: Recette;
+  public updatedRecette;
+  public focusedId: number;
+  public newArticle: Recette;
 
   constructor(recettesService: RecettesService) {
     this.recettesService = recettesService;
@@ -29,19 +29,20 @@ export class RecettesComponent implements OnInit {
     this.loadRecipes();
   }
 
-  public loadRecipes():void {
+  public loadRecipes(): void {
     this.recettesService.getRecipes().subscribe(
       data => {
+        console.log(data);
         this.recettes = data;
       }
     );
   }
 
-  public getCredentials():string {
+  public getCredentials(): string {
     return localStorage.getItem('userCredentials');
   }
 
-  public setEdition(value:boolean):void {
+  public setEdition(value: boolean): void {
     this.edition = value;
   }
 
@@ -49,26 +50,25 @@ export class RecettesComponent implements OnInit {
     return this.edition;
   }
 
-  public update(id:number, title:string, article:string, src:string) {
+  public update(id: number, title: string, article: string, src: string) {
     this.updatedRecette.title = title;
-    this.updatedRecette.article= article;
+    this.updatedRecette.article = article;
     this.updatedRecette.src = src;
     this.recettesService.update(id, this.updatedRecette).subscribe(
       res => window.location.reload()
-    )
+    );
   }
 
-  public delete(id:number) {
+  public delete(id: number) {
     this.recettesService.delete(id).subscribe();
     window.location.reload();
   }
 
   public addRecette() {
-    this.newArticle.src = 'https://www.youtube.com/embed/' + this.newArticle.src.substring(32,);
+    this.newArticle.url = 'https://www.youtube.com/embed/' + this.newArticle.url.substring(32, );
     this.recettesService.add(this.newArticle).subscribe(
       res => {
-        console.log(res);
-        window.location.reload()
+        window.location.reload();
       }
     );
   }

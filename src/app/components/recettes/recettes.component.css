@@ -8,3 +8,7 @@
 img {
   width: 900px;
 }
+
+.has-error{
+  border:1px red solid;
+}

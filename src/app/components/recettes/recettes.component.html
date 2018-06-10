@@ -5,7 +5,7 @@
 
     <div style="margin-bottom: 5%; background-color: white" class="row">
       <div class="col-4">
-        <iframe [src]="r.src | safe" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe [src]="r.url | safe" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="col-xs-12 col-sm-8 col-md-8">
         <div class="list-group">
@@ -15,13 +15,15 @@
         <a *ngIf="getCredentials()==='0' && !getEdition()" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(true);standby.title=r.title;standby.article=r.article">EDIT</a>
         <a *ngIf="getCredentials()==='0' && getEdition()" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(false);r.title=standby.title;r.article=standby.article">CANCEL</a>
         <br *ngIf="getCredentials()==='0' && getEdition()"/>
-        <a *ngIf="getCredentials()==='0' && getEdition()" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(false);update(r.id, r.title, r.article, r.src)">OK</a>
+        <a *ngIf="getCredentials()==='0' && getEdition() && updatedRecette.title != '' && updatedRecette.article != ''" style="font-weight:bold; float:right; cursor:hand" (click)="setEdition(false);update(r.id, r.title, r.article, r.url)">OK</a>
         <label *ngIf="getEdition()">Titre</label>
         <br *ngIf="getEdition()"/>
+        <label *ngIf="updatedRecette.title==''" style="color:red">Le titre ne peut pas être vide !</label>
         <input *ngIf="getEdition()"
                class="field-state-1 "
                #title="ngModel"
                name="title"
+               [class.has-error]="updatedRecette.title==''"
                [(ngModel)]="r.title"
                (input)="updatedRecette.title  = $event.target.value"
                type="text"
@@ -29,10 +31,12 @@
         <br *ngIf="getEdition()"/>
         <label *ngIf="getEdition()">Article</label>
         <br *ngIf="getEdition()"/>
+        <label *ngIf="updatedRecette.article==''" style="color:red">L'article ne peut pas être vide !</label>
         <textarea *ngIf="getEdition()"
                   style="width:50%;min-height:30px"
                   #article="ngModel"
                   name="article"
+                  [class.has-error]="updatedRecette.article==''"
                   [(ngModel)]="r.article"
                   (input)="updatedRecette.article  = $event.target.value"
                   type="text"
@@ -40,6 +44,10 @@
         <h4 *ngIf="!getEdition()">{{ r.title }}<a href="#"></a></h4>
         <p *ngIf="!getEdition()">{{ r.article }}</p>
         <iframe width="100%" height="100" scrolling="no" frameborder="no"></iframe>
+      </div>
+      <div id="comment-section">
+        <h4 style="margin-left:5%;color:#9e9e9e">Commentaires</h4>
+        <p>{{ r.comments }}</p>
       </div>
     </div>
 
@@ -103,8 +111,8 @@
         <label>Lien de la vidéo</label>
         <br>
         <input
-          [(ngModel)]="newArticle.src"
-          (input)="newArticle.src  = $event.target.value" style="width: 100%" placeholder="Inserer le lien de la video"/>
+          [(ngModel)]="newArticle.url"
+          (input)="newArticle.url  = $event.target.value" style="width: 100%" placeholder="Inserer le lien de la video"/>
       </div>
 
       <!-- Modal footer -->

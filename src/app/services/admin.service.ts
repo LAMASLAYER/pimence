@@ -9,7 +9,7 @@ export class AdminService extends GlobalService {
   private unAuthorized: boolean;
   private wrongPassword: boolean;
 
-  public login(l: Login):Observable<void> {
+  public login(l: Login): Observable<void> {
     this.setUnAuthorize(false);
     this.setWrongPassword(false);
     return this.http.get(this.server + '/users?username=' + l.username)

@@ -18,18 +18,19 @@ export class RecettesService extends GlobalService {
       });
   }
 
-  public update(id: number, r:Recette) {
+  public update(id: number, r: Recette) {
     return this.http
       .put<Recette>(this.server + '/recettes/' + id , r);
   }
 
-  public delete(id:number) {
+  public delete(id: number) {
+    console.log(this.server + '/recettes/' + id);
     return this.http
       .delete(this.server + '/recettes/' + id);
   }
 
-  public add(r:Recette) {
+  public add(r: Recette) {
     return this.http
-      .post(this.server+ '/recettes/', r);
+      .post(this.server + '/recettes/', r);
   }
 }
