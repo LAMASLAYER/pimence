@@ -24,7 +24,6 @@ export class RecettesService extends GlobalService {
   }
 
   public delete(id: number) {
-    console.log(this.server + '/recettes/' + id);
     return this.http
       .delete(this.server + '/recettes/' + id);
   }

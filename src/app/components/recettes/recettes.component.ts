@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {RecettesService} from '../../services/recettes.service';
 import {Recette} from '../../models/recette';
+import {CommentsService} from '../../services/comments.service';
+import {Comments} from '../../models/comments';
 
 @Component({
   selector: 'app-recettes',
@@ -16,15 +18,24 @@ export class RecettesComponent implements OnInit {
   public updatedRecette;
   public focusedId: number;
   public newArticle: Recette;
+  private commentsService: CommentsService;
+  public comments: any;
+  public newComment: Comments;
+  public admin: string;
 
-  constructor(recettesService: RecettesService) {
+  constructor(recettesService: RecettesService, commentsService: CommentsService) {
     this.recettesService = recettesService;
     this.standby = new Recette();
     this.updatedRecette = new Recette();
     this.newArticle = new Recette();
+    this.newComment = new Comments();
+    this.commentsService = commentsService;
   }
 
   ngOnInit() {
+    if (localStorage.getItem('userCredentials')!= null){
+      this.admin = localStorage.getItem('userCredentials')
+    }
     this.recettes = [];
     this.loadRecipes();
   }
@@ -32,8 +43,8 @@ export class RecettesComponent implements OnInit {
   public loadRecipes(): void {
     this.recettesService.getRecipes().subscribe(
       data => {
-        console.log(data);
         this.recettes = data;
+        this.loadComments(this.recettes['id']);
       }
     );
   }
@@ -71,5 +82,31 @@ export class RecettesComponent implements OnInit {
         window.location.reload();
       }
     );
+  }
+
+  public loadComments(id: number) {
+    this.commentsService.getComments(id).subscribe(
+      res => {
+        this.comments = res;
+      }
+    )
+  }
+
+  public addComment(id: number) {
+    this.newComment.relatedId = id;
+    console.log("Post:" + this.newComment);
+    this.commentsService.add(this.newComment).subscribe(
+      res => {
+        this.loadComments(id);
+      }
+    );
+  }
+
+  public deleteComment(id: number, focus: number) {
+    this.commentsService.deleteComment(id).subscribe(
+      res => {
+        this.loadComments(focus);
+      }
+    )
   }
 }

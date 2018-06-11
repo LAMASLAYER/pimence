@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {AdminService} from './services/admin.service';
 import {GlobalService} from './services/global.service';
 import { SafePipe } from './pipes/safe.pipe';
+import { CommentsService } from './services/comments.service';
 
 const appRoutes: Routes = [
   {
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     RecettesService,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     AdminService,
-    GlobalService
+    GlobalService,
+    CommentsService
   ],
   bootstrap: [AppComponent]
 })
