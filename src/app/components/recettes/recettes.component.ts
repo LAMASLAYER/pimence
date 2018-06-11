@@ -72,7 +72,9 @@ export class RecettesComponent implements OnInit {
 
   public delete(id: number) {
     this.recettesService.delete(id).subscribe(
-      res => this.loadRecipes();
+      res => {
+        this.loadRecipes();
+      }
     );
   }
 
