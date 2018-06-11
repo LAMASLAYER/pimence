@@ -64,22 +64,23 @@ export class RecettesComponent implements OnInit {
   public update(id: number, title: string, article: string, src: string) {
     this.updatedRecette.title = title;
     this.updatedRecette.article = article;
-    this.updatedRecette.src = src;
+    this.updatedRecette.url = src;
     this.recettesService.update(id, this.updatedRecette).subscribe(
-      res => window.location.reload()
+      res => this.loadRecipes()
     );
   }
 
   public delete(id: number) {
-    this.recettesService.delete(id).subscribe();
-    window.location.reload();
+    this.recettesService.delete(id).subscribe(
+      res => this.loadRecipes();
+    );
   }
 
   public addRecette() {
     this.newArticle.url = 'https://www.youtube.com/embed/' + this.newArticle.url.substring(32, );
     this.recettesService.add(this.newArticle).subscribe(
       res => {
-        window.location.reload();
+        this.loadRecipes();
       }
     );
   }
